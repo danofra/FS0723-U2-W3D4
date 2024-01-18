@@ -4,9 +4,10 @@ const myURL = "https://api.pexels.com/v1/search?query=" + query;
 const myURL2 = "https://api.pexels.com/v1/search?query=" + query2;
 const key = "lquFV3FXRG8HfwySSrWruh3osb7kjiXluEkC6syNB1xoWdbZ0PE2ms0f";
 const image = document.getElementById("load");
+const image2 = document.getElementById("reLoad");
 
-image.addEventlistener("click", () => {
-  fetch(myURL, {
+const fetchFunction = function (url) {
+  fetch(url, {
     headers: {
       Authorization: key,
     },
@@ -25,7 +26,6 @@ image.addEventlistener("click", () => {
         let idPhoto = photo.id;
         let photographer = photo.photographer;
         let alt = photo.alt;
-        console.log(src, idPhoto, photographer, alt);
         let row = document.getElementById("card");
         let col = document.createElement("div");
         let card = document.createElement("div");
@@ -73,4 +73,11 @@ image.addEventlistener("click", () => {
     .catch((error) => {
       console.error(error.message);
     });
+};
+
+image.addEventListener("click", () => {
+  fetchFunction(myURL);
+});
+image2.addEventListener("click", () => {
+  fetchFunction(myURL2);
 });
