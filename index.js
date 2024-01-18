@@ -5,8 +5,10 @@ const myURL2 = "https://api.pexels.com/v1/search?query=" + query2;
 const key = "lquFV3FXRG8HfwySSrWruh3osb7kjiXluEkC6syNB1xoWdbZ0PE2ms0f";
 const image = document.getElementById("load");
 const image2 = document.getElementById("reLoad");
-
+let currentCard;
 const fetchFunction = function (url) {
+  const mainRow = document.getElementById("card");
+  mainRow.innerHTML = "";
   fetch(url, {
     headers: {
       Authorization: key,
@@ -59,8 +61,9 @@ const fetchFunction = function (url) {
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-secondary"
+                  id="remove"
                 >
-                  Edit
+                  Hide
                 </button>
               </div>
               <small class="text-muted">${idPhoto}</small>
@@ -68,13 +71,17 @@ const fetchFunction = function (url) {
           </div>`;
         row.appendChild(col);
         col.appendChild(card);
+        currentCard = card;
+        const hideButton = card.querySelector("#remove");
+        hideButton.addEventListener("click", () => {
+          row.removeChild(col);
+        });
       });
     })
     .catch((error) => {
       console.error(error.message);
     });
 };
-
 image.addEventListener("click", () => {
   fetchFunction(myURL);
 });
